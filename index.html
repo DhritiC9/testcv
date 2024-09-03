@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <style>
+        body { text-align: center; margin-top: 50px; }
+        #attendance-form { display: none; }
+    </style>
+</head>
+<body>
+    <h1>Attendance Check</h1>
+    <div id="attendance-form">
+        <p>Is your attendance for <span id="date"></span>?</p>
+        <button onclick="submitAnswer('Yes')">Yes</button>
+        <button onclick="submitAnswer('No')">No</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').textContent = today;
+            document.getElementById('attendance-form').style.display = 'block';
+        });
+
+        function submitAnswer(answer) {
+            const today = new Date().toISOString().split('T')[0];
+            fetch('https://<your-static-site>.github.io/attendance-app/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ date: today, answer: answer }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Response submitted: ' + answer);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
