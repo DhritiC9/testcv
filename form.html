@@ -4,35 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Form</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrious@latest/dist/qrious.min.js"></script>
-    <style>
-        body { text-align: center; margin-top: 50px; }
-        #attendance-form { display: none; margin-top: 20px; }
-        #qr-code { margin-top: 20px; }
-    </style>
 </head>
 <body>
     <h1>Attendance Form</h1>
-    <canvas id="qr-code"></canvas>
-    <div id="attendance-form">
-        <p>Is your attendance for <span id="date"></span>?</p>
-        <button onclick="submitAnswer('Yes')">Yes</button>
-        <button onclick="submitAnswer('No')">No</button>
-    </div>
+    <p>Is your attendance for <span id="date"></span>?</p>
+    <button onclick="submitAnswer('Yes')">Yes</button>
+    <button onclick="submitAnswer('No')">No</button>
 
     <script>
-        // Generate QR Code
-        var qr = new QRious({
-            element: document.getElementById('qr-code'),
-            value: window.location.href + 'form.html' // Link to the form page
-        });
-
         // Show current date in the form
         document.addEventListener('DOMContentLoaded', (event) => {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('date').textContent = today;
-            document.getElementById('attendance-form').style.display = 'block';
         });
 
         // Submit answer
